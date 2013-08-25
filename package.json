@@ -1,0 +1,26 @@
+{
+	"name": "sweets-marshmallow",
+	"version": "0.0.1",
+	"description": "Sweets's menu marshmallow",
+	"keywords": ["future", "web", "framework", "sweets", "menu"],
+	"author": "Alexey Novikov <v@2dubs.com> (http://2dubs.com)",
+	"preferGlobal": false,
+	"dependencies": {
+		"async":	"0.2.7",
+		"apis": 	"~0.0.2",
+		"apis-addresource": "~0.0.1",
+		"units": 	"~0.0.1",
+		"valid": 	"~0.0.2",
+	},
+	"engines": {
+		"node": "~0.10.15"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git@github.com:velocityzen/marshmallow.git"
+	},
+	"directories": {
+		"lib": "./lib"
+	},
+	"main": "./lib/index"
+}
