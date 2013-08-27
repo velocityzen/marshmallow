@@ -7,10 +7,10 @@
 	"preferGlobal": false,
 	"dependencies": {
 		"async":	"0.2.7",
-		"apis": 	"~0.0.2",
-		"apis-addresource": "~0.0.1",
 		"units": 	"~0.0.1",
 		"valid": 	"~0.0.2",
+
+		"sweets-nougat": "~0.0.1"
 	},
 	"engines": {
 		"node": "~0.10.15"
