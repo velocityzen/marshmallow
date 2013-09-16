@@ -1,7 +1,8 @@
 # Sweets
+Next Web builder toolkit
 
 ## Marshmallow
 
-**Sweets app for tree based structures**
+**Sweet for tree based structures**
 
-You can use this app for menus, categories, tags etc.
+You can use this sweet for menus, categories, tags etc.
