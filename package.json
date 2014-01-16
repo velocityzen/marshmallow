@@ -9,8 +9,9 @@
 	"dependencies": {
 		"async":	"~0.2.7",
 		"units": 	"~0.0.1",
-		"valid": 	"~0.1.0",
 		"uch": 		"~0.0.1",
+
+		"sweets-valid": 	"~0.0.1",
 
 		"apis-return": "~0.0.1"
 	},
