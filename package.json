@@ -22,8 +22,5 @@
 		"type": "git",
 		"url": "git@github.com:swts/marshmallow.git"
 	},
-	"directories": {
-		"lib": "./lib"
-	},
-	"main": "./lib/index"
+	"main": "./index"
 }

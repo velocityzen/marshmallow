@@ -7,9 +7,12 @@ var Tags = function () {};
 inherits(Tags, Unit);
 
 Tags.prototype.unitInit = function (units) {
-	var ctrl = units.require('tree.controller');
 	var env = units.require('core.template');
-	env.addExtension('TreeTag', new TreeTag(env, ctrl));
+
+	if(env && env.addExtension) {
+		var ctrl = units.require('tree.controller');
+		env.addExtension('TreeTag', new TreeTag(env, ctrl));
+	}
 };
 
 
