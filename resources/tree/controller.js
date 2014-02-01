@@ -11,6 +11,8 @@ var Tree = function () {
 };
 inherits(Tree, Unit);
 
+Tree.prototype.box = "trees";
+
 Tree.prototype.unitInit = function (units) {
 	var cache = units.get('core.cache');
 
