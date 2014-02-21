@@ -6,7 +6,7 @@ var returnHandler = require('apis-return').handler;
 var Tree = function () {};
 inherits(Tree, Unit);
 
-Tree.prototype.name = 'tree';
+Tree.prototype.resource = 'tree';
 
 Tree.prototype.unitInit = function (units) {
 	this.ctrl = units.require('controller');

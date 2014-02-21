@@ -1,62 +1,71 @@
 'use strict';
+var inherits = require('util').inherits;
+var Unit = require('units').Unit;
 var v = require('../validators');
 
-module.exports = {
-	create: function(settings) {
-		var languages = settings.languages,
-			validator = v.basedOn(v.TreeItem, {
-				slug: v.path
-			});
+var Request = function () {};
+inherits(Request, Unit);
 
-		if (languages) {
-			var TreeItemRef = v.wrapper();
+Request.prototype.unitInit = function(units) {
+	var settings = units.require("core.settings");
+	this.languages = settings.languages;
+};
 
-			var TreeItem = {
-				title: v.translate(v.str, languages),
-				link: v.opt(v.str),
-				order: v.opt([v.slug]),
-				items: v.opt(v.dict(v.slug, TreeItemRef))
-			};
+Request.prototype.create = function() {
+	var validator = v.basedOn(v.TreeItem, {
+			slug: v.path
+		});
 
-			TreeItemRef.validator = v.spec(TreeItem);
+	if (this.languages) {
+		var TreeItemRef = v.wrapper();
 
-			var ItemCreate = v.basedOn(TreeItem, {
-				slug: v.path
-			});
+		var TreeItem = {
+			title: v.translate(v.str, this.languages),
+			link: v.opt(v.str),
+			order: v.opt([v.slug]),
+			items: v.opt(v.dict(v.slug, TreeItemRef))
+		};
 
-			validator = ItemCreate;
-		}
+		TreeItemRef.validator = v.spec(TreeItem);
 
-		return validator;
-	},
+		var ItemCreate = v.basedOn(TreeItem, {
+			slug: v.path
+		});
 
-	update: function(settings) {
-		var languages = settings.languages,
-			validator = {
-				slug: v.path,
-				to: v.or(
-					{ slug: v.slug },
-					{ link: v.str },
-					{ order: [v.slug] },
-					{ title: v.opt(v.str) }
-				)
-			};
-			
-		if (languages) {
-			validator.to = v.or(
+		validator = ItemCreate;
+	}
+
+	return validator;
+};
+
+Request.prototype.update = function() {
+	var validator = {
+			slug: v.path,
+			to: v.or(
 				{ slug: v.slug },
 				{ link: v.str },
 				{ order: [v.slug] },
-				{ title: v.translate(v.str, languages) }
-			);
-		}
-			
-		return validator;
-	},
-
-	del: function(settings) {
-		return {
-			slug: v.path
+				{ title: v.opt(v.str) }
+			)
 		};
+
+	if (this.languages) {
+		validator.to = v.or(
+			{ slug: v.slug },
+			{ link: v.str },
+			{ order: [v.slug] },
+			{ title: v.translate(v.str, this.languages) }
+		);
 	}
+
+	return validator;
 };
+
+Request.prototype.del = function() {
+	return {
+		slug: v.path
+	};
+};
+
+
+module.exports = Request;

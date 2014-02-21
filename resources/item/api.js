@@ -6,7 +6,7 @@ var Unit = require('units').Unit;
 var Item = function () {};
 inherits(Item, Unit);
 
-Item.prototype.name = 'tree/item';
+Item.prototype.resource = 'tree/item';
 
 Item.prototype.unitInit = function (units) {
 	this.ctrl = units.require('tree.controller');
