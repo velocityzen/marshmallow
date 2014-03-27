@@ -18,7 +18,6 @@ TreeTag.prototype.render = function(context, slug, cb) {
 
 	this.ctrl.get(slug, function(err, result) {
 		if(err) {
-			// console.error(err);
 			cb(null);
 		} else {
 			result.PATH = context.ctx.PATH;

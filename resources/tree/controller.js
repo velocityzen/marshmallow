@@ -7,7 +7,6 @@ var Uch = require('uch');
 var Tree = function () {
 	this.db = null;
 	this.cache = null;
-	this.box = "trees";
 };
 inherits(Tree, Unit);
 
