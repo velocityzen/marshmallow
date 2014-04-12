@@ -40,7 +40,7 @@ Request.prototype.create = function() {
 
 Request.prototype.update = function() {
 	var validator = {
-			slug: v.path,
+			id: v.path,
 			to: v.or(
 				{ slug: v.slug },
 				{ link: v.str },

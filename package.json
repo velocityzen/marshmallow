@@ -7,7 +7,7 @@
 	"preferGlobal": false,
 	"license" : "GPLv3",
 	"dependencies": {
-		"async":	"~0.2.9",
+		"async":	"~0.6.2",
 		"units": 	"~0.0.1",
 		"uch": 		"~0.0.1",
 

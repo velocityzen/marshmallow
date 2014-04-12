@@ -13,7 +13,7 @@ Request.prototype.unitInit = function(units) {
 
 Request.prototype.get = function() {
 	return {
-		slug: v.slug
+		id: v.slug
 	};
 };
 
@@ -44,7 +44,7 @@ Request.prototype.create = function() {
 
 Request.prototype.update = function() {
 	var validator = {
-			slug: v.slug,
+			id: v.slug,
 			to: v.or(
 				{ slug: v.opt(v.slug) },
 				{ order: v.opt([v.slug]) }
@@ -56,7 +56,7 @@ Request.prototype.update = function() {
 
 Request.prototype.del = function() {
 	return {
-		slug: v.slug
+		id: v.slug
 	};
 };
 

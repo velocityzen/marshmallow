@@ -13,7 +13,7 @@ Tree.prototype.unitInit = function (units) {
 };
 
 Tree.prototype.get = function (auth, data, cb) {
-	this.ctrl.get(data.slug, returnHandler("NotFound", cb));
+	this.ctrl.get(data.id, returnHandler("NotFound", cb));
 };
 
 Tree.prototype.create = function (auth, data, cb) {
@@ -21,11 +21,11 @@ Tree.prototype.create = function (auth, data, cb) {
 };
 
 Tree.prototype.update = function (auth, data, cb) {
-	this.ctrl.update(data.slug, data.to, returnHandler("BadRequest", cb));
+	this.ctrl.update(data.id, data.to, returnHandler("BadRequest", cb));
 };
 
 Tree.prototype.del = function (auth, data, cb) {
-	this.ctrl.remove(data.slug, returnHandler("NotFound", cb));
+	this.ctrl.remove(data.id, returnHandler("NotFound", cb));
 };
 
 
