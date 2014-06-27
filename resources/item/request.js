@@ -63,7 +63,7 @@ Request.prototype.update = function() {
 
 Request.prototype.del = function() {
 	return {
-		slug: v.path
+		id: v.path
 	};
 };
 

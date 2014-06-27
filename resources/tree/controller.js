@@ -48,9 +48,26 @@ Tree.prototype.remove = function (slug, cb) {
 
 // Tree item
 Tree.prototype.createItem = function (item, cb) {
-	var path = this.db.getPath(item.slug, 'items');
+	var self = this,
+	 	path = this.db.getPath(item.slug, 'items');
 	delete item.slug;
-	this.db.insert(this.box, path, item, cb);
+
+	this.db.insert(this.box, path, item, function(err, result) {
+		if (err) {
+			cb(err, null);
+		} else {
+			self.db.query({
+				box: self.box,
+				get: path[0],
+				index: "slug"
+			},
+			[{
+				replace: function(row) {
+					return row.merge({order: row("order").append(path[2])});
+				}
+			}], cb);
+		}
+	});
 };
 
 Tree.prototype.updateItem = function (item, data, cb) {
@@ -59,13 +76,48 @@ Tree.prototype.updateItem = function (item, data, cb) {
 };
 
 Tree.prototype.renameItem = function(item, newName, cb) {
-	var path = this.db.getPath(item, 'items');
-	this.db.rename(this.box, path, newName, this.cache.remove(path[0], cb));
+	var self = this,
+		path = this.db.getPath(item, 'items');
+
+	this.db.rename(this.box, path, newName, this.cache.remove(path[0], function(err, result) {
+		if (err) {
+			cb(err, null);
+		} else {
+			self.db.query({
+				box: self.box,
+				get: path[0],
+				index: "slug"
+			},
+			[{
+				replace: function(row) {
+					var index = row("order").indexesOf(path[2]);
+					return row.merge({order: row("order").changeAt(index, newName)});
+				}
+			}], cb);
+		}
+	}));
 };
 
 Tree.prototype.removeItem = function (item, cb) {
-	var path = this.db.getPath(item, 'items');
-	this.db.remove(this.box, path, this.cache.remove(path[0], cb));
+	var self = this,
+		path = this.db.getPath(item, 'items');
+
+	this.db.remove(this.box, path, this.cache.remove(path[0], function(err, result) {
+		if (err) {
+			cb(err, null);
+		} else {
+			self.db.query({
+				box: self.box,
+				get: path[0],
+				index: "slug"
+			},
+			[{
+				replace: function(row) {
+					return row.merge({order: row("order").setDifference([path[2]])});
+				}
+			}], cb);
+		}
+	}));
 };
 
 
