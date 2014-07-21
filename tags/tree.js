@@ -14,7 +14,8 @@ TreeTag.prototype.parse = function(parser, nodes) {
 };
 
 TreeTag.prototype.render = function(context, slug, cb) {
-	var self = this;
+	var self = this,
+		env = this.env;
 
 	this.ctrl.get(slug, function(err, result) {
 		if(err) {
@@ -22,7 +23,15 @@ TreeTag.prototype.render = function(context, slug, cb) {
 		} else {
 			result.PATH = context.ctx.PATH;
 			result.LANGUAGE = context.ctx.LANGUAGE;
-			self.env.render("tree/"+slug+".html", result, cb);
+
+			var template;
+			try {
+				template = env.getTemplate("trees/"+ slug +".html");
+			} catch(e) {
+				template = env.getTemplate("trees/tree.html");
+			}
+
+			template.render(result, cb);
 		}
 	});
 };
