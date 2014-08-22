@@ -71,26 +71,31 @@ Tree.prototype.createItem = function (item, cb) {
 };
 
 Tree.prototype.updateItem = function (item, data, cb) {
-	var path = this.db.getPath(item, 'items');
-	this.db.update(this.box, path, data, this.cache.remove(path[0], cb));
+	var path = this.db.getPath(item, 'items'),
+		treeId = path[0];
+	this.db.update(this.box, path, data, this.cache.remove(treeId, cb));
 };
 
 Tree.prototype.renameItem = function(item, newName, cb) {
 	var self = this,
-		path = this.db.getPath(item, 'items');
+		path = this.db.getPath(item, 'items'),
+		treeId = path[0],
+		itemId = path[2];
 
-	this.db.rename(this.box, path, newName, this.cache.remove(path[0], function(err, result) {
+	console.log(">>", treeId, itemId);
+
+	this.db.rename(this.box, path, newName, this.cache.remove(treeId, function(err, result) {
 		if (err) {
 			cb(err, null);
 		} else {
 			self.db.query({
 				box: self.box,
-				get: path[0],
+				get: treeId,
 				index: "slug"
 			},
 			[{
 				replace: function(row) {
-					var index = row("order").indexesOf(path[2]);
+					var index = row("order").indexesOf(itemId).nth(0);
 					return row.merge({order: row("order").changeAt(index, newName)});
 				}
 			}], cb);
@@ -100,20 +105,22 @@ Tree.prototype.renameItem = function(item, newName, cb) {
 
 Tree.prototype.removeItem = function (item, cb) {
 	var self = this,
-		path = this.db.getPath(item, 'items');
+		path = this.db.getPath(item, 'items'),
+		treeId = path[0],
+		itemId = path[2];
 
-	this.db.remove(this.box, path, this.cache.remove(path[0], function(err, result) {
+	this.db.remove(this.box, path, this.cache.remove(treeId, function(err, result) {
 		if (err) {
 			cb(err, null);
 		} else {
 			self.db.query({
 				box: self.box,
-				get: path[0],
+				get: treeId,
 				index: "slug"
 			},
 			[{
 				replace: function(row) {
-					return row.merge({order: row("order").setDifference([path[2]])});
+					return row.merge({order: row("order").setDifference([itemId])});
 				}
 			}], cb);
 		}
