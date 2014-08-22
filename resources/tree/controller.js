@@ -49,21 +49,23 @@ Tree.prototype.remove = function (slug, cb) {
 // Tree item
 Tree.prototype.createItem = function (item, cb) {
 	var self = this,
-	 	path = this.db.getPath(item.slug, 'items');
-	delete item.slug;
+	 	path = this.db.getPath(item.slug, 'items'),
+	 	treeId = path[0],
+		itemId = path[2];
 
+	delete item.slug;
 	this.db.insert(this.box, path, item, function(err, result) {
 		if (err) {
 			cb(err, null);
 		} else {
 			self.db.query({
 				box: self.box,
-				get: path[0],
+				get: treeId,
 				index: "slug"
 			},
 			[{
 				replace: function(row) {
-					return row.merge({order: row("order").append(path[2])});
+					return row.merge({order: row("order").append(itemId)});
 				}
 			}], cb);
 		}
