@@ -84,8 +84,6 @@ Tree.prototype.renameItem = function(item, newName, cb) {
 		treeId = path[0],
 		itemId = path[2];
 
-	console.log(">>", treeId, itemId);
-
 	this.db.rename(this.box, path, newName, this.cache.remove(treeId, function(err, result) {
 		if (err) {
 			cb(err, null);
