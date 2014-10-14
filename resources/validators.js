@@ -29,7 +29,6 @@ module.exports = {
 	oneOrMany: oneOrMany,
 	TreeItem: TreeItem,
 	dict: v.dict,
-	translate: valid.translate,
 	wrapper: v.wrapper,
 	spec: v.spec
 };

@@ -1,10 +1,7 @@
 "use strict";
-var inherits = require('util').inherits;
-var Unit = require('units').Unit;
 var TreeTag = require('./tags/tree');
 
 var Tags = function () {};
-inherits(Tags, Unit);
 
 Tags.prototype.unitInit = function (units) {
 	var env = units.require('core.template');

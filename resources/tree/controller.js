@@ -1,14 +1,10 @@
 "use strict";
-var inherits = require('util').inherits;
-var inspect = require('util').inspect;
-var Unit = require('units').Unit;
 var Uch = require('uch');
 
 var Tree = function () {
 	this.db = null;
 	this.cache = null;
 };
-inherits(Tree, Unit);
 
 Tree.prototype.box = "trees";
 Tree.prototype.scheme = { indexes: ["slug"] };
