@@ -4,8 +4,6 @@ var v = require('../validators');
 var Request = function () {};
 
 Request.prototype.unitInit = function(units) {
-	var settings = units.require("core.settings");
-	this.languages = settings.languages;
 };
 
 Request.prototype.create = function() {
@@ -13,7 +11,7 @@ Request.prototype.create = function() {
 			slug: v.path
 		});
 
-	if (this.languages) {
+	/*if (this.languages) {
 		var TreeItemRef = v.wrapper();
 
 		var TreeItem = {
@@ -30,7 +28,7 @@ Request.prototype.create = function() {
 		});
 
 		validator = ItemCreate;
-	}
+	}*/
 
 	return validator;
 };
@@ -46,14 +44,14 @@ Request.prototype.update = function() {
 			)
 		};
 
-	if (this.languages) {
+	/*if (this.languages) {
 		validator.to = v.or(
 			{ slug: v.slug },
 			{ link: v.str },
 			{ order: [v.slug] },
 			{ title: v.translate(v.str, this.languages) }
 		);
-	}
+	}*/
 
 	return validator;
 };

@@ -22,7 +22,6 @@ TreeTag.prototype.render = function(context, slug, cb) {
 			cb(null);
 		} else {
 			result.PATH = context.ctx.PATH;
-			result.LANGUAGE = context.ctx.LANGUAGE;
 
 			var template;
 			try {

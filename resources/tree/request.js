@@ -3,10 +3,7 @@ var v = require('../validators');
 
 var Request = function () {};
 
-Request.prototype.unitInit = function(units) {
-	var settings = units.require("core.settings");
-	this.languages = settings.languages;
-};
+Request.prototype.unitInit = function(units) {};
 
 Request.prototype.get = function() {
 	return {
@@ -21,7 +18,7 @@ Request.prototype.create = function() {
 			items: v.dict(v.slug, v.TreeItem)
 		};
 
-	if (this.languages) {
+	/*if (this.languages) {
 		var TreeItemRef = v.wrapper();
 
 		var TreeItem = {
@@ -34,7 +31,7 @@ Request.prototype.create = function() {
 		TreeItemRef.validator = v.spec(TreeItem);
 
 		validator.items = v.dict(v.slug, TreeItem);
-	}
+	}*/
 
 	return validator;
 };

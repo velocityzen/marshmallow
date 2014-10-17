@@ -20,8 +20,6 @@ Tree.prototype.unitInit = function (units) {
 	this.db = units.require('db');
 };
 
-// Tree
-
 Tree.prototype.get = function(slug, cb) {
 	var self = this;
 
@@ -42,7 +40,6 @@ Tree.prototype.remove = function (slug, cb) {
 	this.db.remove(this.box, slug, this.cache.remove(slug, cb));
 };
 
-// Tree item
 Tree.prototype.createItem = function (item, cb) {
 	var self = this,
 	 	path = this.db.getPath(item.slug, 'items'),
@@ -63,7 +60,7 @@ Tree.prototype.createItem = function (item, cb) {
 				replace: function(row) {
 					return row.merge({order: row("order").append(itemId)});
 				}
-			}], cb);
+			}], self.cache.remove(treeId, cb));
 		}
 	});
 };
@@ -80,7 +77,7 @@ Tree.prototype.renameItem = function(item, newName, cb) {
 		treeId = path[0],
 		itemId = path[2];
 
-	this.db.rename(this.box, path, newName, this.cache.remove(treeId, function(err, result) {
+	this.db.rename(this.box, path, newName, function(err, result) {
 		if (err) {
 			cb(err, null);
 		} else {
@@ -94,9 +91,9 @@ Tree.prototype.renameItem = function(item, newName, cb) {
 					var index = row("order").indexesOf(itemId).nth(0);
 					return row.merge({order: row("order").changeAt(index, newName)});
 				}
-			}], cb);
+			}], self.cache.remove(treeId, cb));
 		}
-	}));
+	});
 };
 
 Tree.prototype.removeItem = function (item, cb) {
@@ -105,7 +102,7 @@ Tree.prototype.removeItem = function (item, cb) {
 		treeId = path[0],
 		itemId = path[2];
 
-	this.db.remove(this.box, path, this.cache.remove(treeId, function(err, result) {
+	this.db.remove(this.box, path, function(err, result) {
 		if (err) {
 			cb(err, null);
 		} else {
@@ -118,9 +115,9 @@ Tree.prototype.removeItem = function (item, cb) {
 				replace: function(row) {
 					return row.merge({order: row("order").setDifference([itemId])});
 				}
-			}], cb);
+			}], self.cache.remove(treeId, cb));
 		}
-	}));
+	});
 };
 
 
