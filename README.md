@@ -6,7 +6,7 @@ Next Web builder toolkit
 
 ## Object structure
 
-### "trees" table
+### Table "trees"
 
 ```js
 {
@@ -14,29 +14,30 @@ Next Web builder toolkit
 	order: ["item1", "item2"],
 	items: {
 		item1: {
-			title: {en: "En title", ru: "Ru title"}
+			title: "Home"
 		},
 		item2: {
-			title: {en: "En title", ru: "Ru title"}
+			title: "Sweets", 
+			link: "http://swts.me"
 		}
 	}
 }
 ```
 
-## API
+## Api
 There are two resources: /tree and /tree/item - the second one is a wrapper to access tree items - slugs for it look like "tree slug"/"item slug". Get request returns resource objects, which are described below, and is only available for /tree resource. Other request objects for both resources are similar:
 
-#### GET
+#### Get
 ```js
 {slug: "slug"}
 ```
 
-#### CREATE
+#### Create
 ```js
 {resource object}
 ```
 
-#### UPDATE
+#### Update
 ```js
 {
 	slug: "slug", 
@@ -44,10 +45,10 @@ There are two resources: /tree and /tree/item - the second one is a wrapper to a
 }
 ```
 
-#### DELETE
+#### Delete
 ```js
 {slug: "slug"}
 ```
 
 ## Tags
-One tag is currently supported: {% tree "slug" %} - render template is up to you and should be stored in /templates/tree/ folder under tree slug name.
+One tag is currently supported: {% tree "slug" %} - render template is up to you and should be stored in /templates/trees/ folder under tree slug name.

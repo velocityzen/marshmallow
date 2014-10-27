@@ -17,11 +17,17 @@ TreeTag.prototype.render = function(context, slug, cb) {
 	var self = this,
 		env = this.env;
 
-	this.ctrl.get(slug, function(err, result) {
+	this.ctrl.get(slug, function(err, tree) {
 		if(err) {
 			cb(null);
 		} else {
-			result.PATH = context.ctx.PATH;
+			var result = {
+				tree: tree
+			};
+
+			if(context.ctx.PATH) {
+				result.PATH = context.ctx.PATH;
+			}
 
 			var template;
 			try {
