@@ -19,7 +19,7 @@ TreeTag.prototype.render = function(context, slug, cb) {
 
 	this.ctrl.get(slug, function(err, tree) {
 		if(err) {
-			cb(null);
+			cb(null, "");
 		} else {
 			var result = {
 				tree: tree
