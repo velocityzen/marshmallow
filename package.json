@@ -1,13 +1,12 @@
 {
 	"name": "sweets-marshmallow",
-	"version": "0.5.1",
+	"version": "0.6.0",
 	"description": "Sweets' tree structures",
 	"keywords": ["future", "web", "framework", "sweets", "tree", "menu", "categories"],
 	"author": "Alexey Novikov <v@2dubs.com> (http://2dubs.com)",
 	"preferGlobal": false,
 	"license" : "GPLv3",
 	"dependencies": {
-		"async":	"~0.9.0",
 		"units": 	"~0.0.1",
 		"uch": 		"~0.0.2",
 
@@ -15,7 +14,8 @@
 		"apis-return": "~0.0.1"
 	},
 	"engines": {
-		"node": "~0.10.15"
+		"node": "~0.12.0",
+		"iojs": "^1.5.0"
 	},
 	"repository": {
 		"type": "git",

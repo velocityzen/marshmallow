@@ -1,12 +1,12 @@
 "use strict";
-var returnHandler = require('apis-return').handler;
+let returnHandler = require("apis-return").handler;
 
-var Tree = function () {};
+let Tree = function () {};
 
-Tree.prototype.resource = 'tree';
+Tree.prototype.resource = "tree";
 
 Tree.prototype.unitInit = function (units) {
-	this.ctrl = units.require('controller');
+	this.ctrl = units.require("controller");
 };
 
 Tree.prototype.get = function (auth, data, cb) {

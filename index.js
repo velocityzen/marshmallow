@@ -1,21 +1,16 @@
 "use strict";
-var UnitSet = require('units').UnitSet;
+let UnitSet = require("units").UnitSet;
 
-var tree = require('./resources/tree/units');
-var item = require('./resources/item/units');
-var Tags = require('./tags');
+let tree = require("./resources/tree/units");
+let item = require("./resources/item/units");
+let Tags = require("./tags");
 
-var create = function () {
-	var units = new UnitSet();
+module.exports = function () {
+	let units = new UnitSet();
 
-	units.addSet('tree', tree.create());
-	units.addSet('tree.item', item.create());
-	units.add('tree.tags', new Tags());
+	units.addSet("tree", tree());
+	units.addSet("tree.item", item());
+	units.add("tree.tags", new Tags());
 
 	return units;
-};
-
-
-module.exports = {
-	create: create
 };

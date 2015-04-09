@@ -1,16 +1,12 @@
 "use strict";
-var valid = require('sweets-valid');
-var v = valid.validators;
-var opt = v.opt;
-
-var oneOrMany = function(obj) {
-	return v.v(obj, v.len(1));
-};
+let valid = require("sweets-valid");
+let v = valid.validators;
+let opt = v.opt;
 
 //Tree Item
-var TreeItemRef = v.wrapper();
+let TreeItemRef = v.wrapper();
 
-var TreeItem = {
+let TreeItem = {
 	title: v.str,
 	link: opt(v.str),
 	order: opt([v.slug]),
@@ -23,12 +19,8 @@ module.exports = {
 	or: v.or,
 	str: v.str,
 	opt: opt,
-	basedOn: valid.basedOn,
 	slug: v.slug,
 	path: v.path,
-	oneOrMany: oneOrMany,
 	TreeItem: TreeItem,
-	dict: v.dict,
-	wrapper: v.wrapper,
-	spec: v.spec
+	dict: v.dict
 };

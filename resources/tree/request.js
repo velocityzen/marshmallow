@@ -1,9 +1,11 @@
-'use strict';
-var v = require('../validators');
+"use strict";
+let v = require("../validators");
 
-var Request = function () {};
+let Request = function () {};
 
-Request.prototype.unitInit = function(units) {};
+Request.prototype.unitInit = function(units) {
+
+};
 
 Request.prototype.get = function() {
 	return {
