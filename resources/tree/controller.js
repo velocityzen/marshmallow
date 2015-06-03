@@ -24,7 +24,7 @@ Tree.prototype.get = function(slug, cb) {
 	let self = this;
 
 	this.cache.check(slug, cb, function() {
-		self.db.getSlug(self.box, slug, self.cache.add(slug, cb));
+		self.db.getSlug(self.box, slug, {without: "id"}, self.cache.add(slug, cb));
 	});
 };
 

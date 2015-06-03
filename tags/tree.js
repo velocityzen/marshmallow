@@ -33,7 +33,6 @@ TreeTag.prototype.render = function(context, slug, cb) {
 			} catch(e) {
 				template = env.getTemplate("trees/tree.html");
 			}
-
 			template.render(result, cb);
 		}
 	});

@@ -22,5 +22,6 @@ module.exports = {
 	slug: v.slug,
 	path: v.path,
 	TreeItem: TreeItem,
-	dict: v.dict
+	dict: v.dict,
+	basedOn: valid.basedOn
 };
