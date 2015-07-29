@@ -1,25 +1,25 @@
 "use strict";
-var TreeTag = function(env, ctrl) {
+let TreeTag = function(env, ctrl) {
 	this.tags = ["tree"];
 	this.ctrl = ctrl;
 	this.env = env;
 };
 
 TreeTag.prototype.parse = function(parser, nodes) {
-	var token = parser.nextToken();
-	var args = parser.parseSignature(null, true);
+	let token = parser.nextToken();
+	let args = parser.parseSignature(null, true);
 	parser.advanceAfterBlockEnd(token.value);
 	return new nodes.CallExtensionAsync(this, "render", args);
 };
 
 TreeTag.prototype.render = function(context, slug, cb) {
-	var env = this.env;
+	let env = this.env;
 
 	this.ctrl.get(slug, function(err, tree) {
-		if(err) {
+		if(err || !tree) {
 			cb(null, "");
 		} else {
-			var result = {
+			let result = {
 				tree: tree
 			};
 
@@ -27,7 +27,7 @@ TreeTag.prototype.render = function(context, slug, cb) {
 				result.PATH = context.ctx.PATH;
 			}
 
-			var template;
+			let template;
 			try {
 				template = env.getTemplate("trees/" + slug + ".html");
 			} catch(e) {
