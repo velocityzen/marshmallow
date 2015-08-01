@@ -1,54 +1,96 @@
 # Sweets
-Next Web builder toolkit
+Flexible declarative web framework for real-time projects
 
 ## Marshmallow
-**Sweet for tree structures**
+**Tree structures**
 
-## Object structure
+---
 
-### Table "trees"
+###tree
 
-```js
-{
-	slug: "slug",
-	order: ["item1", "item2"],
-	items: {
-		item1: {
-			title: "Home"
-		},
-		item2: {
-			title: "Sweets", 
-			link: "http://swts.me"
-		}
-	}
-}
-```
+#### Structure
+#####box: "trees"
+#####object
+*	**id** — uuid
+*	**slug** — tree slug
+*	**order** — array of items slugs
+*	**items** — items
 
-## Api
-There are two resources: /tree and /tree/item - the second one is a wrapper to access tree items - slugs for it look like "tree slug"/"item slug". Get request returns resource objects, which are described below, and is only available for /tree resource. Other request objects for both resources are similar:
+#### get
+##### request
+*	**id** — tree slug;
 
-#### Get
-```js
-{slug: "slug"}
-```
+##### response
+*   **tree object**
 
-#### Create
-```js
-{resource object}
-```
+#### create
+##### request
+*	**slug** — tree slug
+*	**order** — array of items slugs
+*	**items** — object with items
 
-#### Update
-```js
-{
-	slug: "slug", 
-	to: {resource object}
-}
-```
+##### response
+* 	**[id]** — uuid, new tree id
 
-#### Delete
-```js
-{slug: "slug"}
-```
+#### update
+##### request
+*	**id** — tree slug
+*	**to**
+	-	slug — new slug
+	-	order - items order
 
-## Tags
-One tag is currently supported: {% tree "slug" %} - render template is up to you and should be stored in /templates/trees/ folder under tree slug name.
+##### response
+* 	db response
+
+#### del
+##### request
+*	**id** — tree slug;
+
+##### response
+*	db response
+
+---
+
+###tree/item
+
+#### Structure
+#####object
+*	**title** — title
+*	**link** — optional, link
+*	**order** — optional, order of items
+*	**items** — the same as tree items
+
+#### create
+##### request
+*	**slug** — item path in tree, like "tree/item/newitem"
+*	the rest as item object
+
+##### response
+* 	db response
+
+#### update
+##### request
+*	**id** — item path
+*	**to**
+	-	slug — new slug
+	-	title — title
+	- 	link — link
+	-	order - items order
+
+##### response
+* 	db response
+
+#### del
+##### request
+*	**id** — item path
+
+##### response
+*	db response
+
+---
+
+### Tags
+#### tree
+render template is up to you and should be stored in /templates/trees/ folder under tree slug name, if template not found will try to render "trees.html" template.
+
+`{% tree "slug" %}`

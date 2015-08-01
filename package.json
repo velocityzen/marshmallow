@@ -4,18 +4,13 @@
 	"description": "Sweets' tree structures",
 	"keywords": ["future", "web", "framework", "sweets", "tree", "menu", "categories"],
 	"author": "Alexey Novikov <v@2dubs.com> (http://2dubs.com)",
-	"preferGlobal": false,
-	"license" : "GPLv3",
+	"license" : "MIT",
 	"dependencies": {
 		"units": 	"~0.0.1",
 		"uch": 		"~0.0.2",
 
 		"sweets-valid": 	"~0.0.3",
 		"apis-return": "~0.0.1"
-	},
-	"engines": {
-		"node": "~0.12.0",
-		"iojs": "^1.5.0"
 	},
 	"repository": {
 		"type": "git",
