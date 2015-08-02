@@ -91,6 +91,6 @@ Flexible declarative web framework for real-time projects
 
 ### Tags
 #### tree
-render template is up to you and should be stored in /templates/trees/ folder under tree slug name, if template not found will try to render "trees.html" template.
+renders template stored in `/templates/trees/` folder under tree slug name, if template not found will try to render "trees.html" template.
 
 `{% tree "slug" %}`
