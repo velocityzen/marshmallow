@@ -8,7 +8,7 @@ let TreeItemRef = v.wrapper();
 
 let TreeItem = {
 	title: v.str,
-	link: opt(v.str),
+	href: opt(v.str),
 	order: opt([v.slug]),
 	items: opt(v.dict(v.slug, TreeItemRef))
 };

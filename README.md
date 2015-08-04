@@ -56,14 +56,17 @@ Flexible declarative web framework for real-time projects
 #### Structure
 #####object
 *	**title** — title
-*	**link** — optional, link
+*	**href** — optional, href
 *	**order** — optional, order of items
 *	**items** — the same as tree items
 
 #### create
+
+**New items will be added to the beginning of the tree (prepend to `order`)**
+
 ##### request
-*	**slug** — item path in tree, like "tree/item/newitem"
-*	the rest as item object
+*	**slug** — item path in the tree, like "tree/item/newitem"
+*	the rest is as in the item object
 
 ##### response
 * 	db response
@@ -74,7 +77,7 @@ Flexible declarative web framework for real-time projects
 *	**to**
 	-	slug — new slug
 	-	title — title
-	- 	link — link
+	- 	href — href
 	-	order - items order
 
 ##### response
@@ -91,6 +94,6 @@ Flexible declarative web framework for real-time projects
 
 ### Tags
 #### tree
-renders template stored in `/templates/trees/` folder under tree slug name, if template not found will try to render "trees.html" template.
+renders the template stored in `/templates/trees/` folder under the tree slug name, if template is not found, renders "trees.html" template instead.
 
 `{% tree "slug" %}`

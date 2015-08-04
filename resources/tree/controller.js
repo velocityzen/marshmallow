@@ -1,5 +1,5 @@
 "use strict";
-let Uch = require("uch");
+// let Uch = require("uch");
 
 let Tree = function () {
 	this.db = null;
@@ -10,22 +10,19 @@ Tree.prototype.box = "trees";
 Tree.prototype.scheme = { indexes: ["slug"] };
 
 Tree.prototype.unitInit = function (units) {
-	let cache = units.get("core.cache");
+	/*let cache = units.get("core.cache");
 
 	if(cache) {
 		cache = cache.cache(this.box);
 	}
 
-	this.cache = new Uch(cache);
+	this.cache = new Uch(cache);*/
 	this.db = units.require("db");
 };
 
 Tree.prototype.get = function(slug, cb) {
 	let self = this;
-
-	this.cache.check(slug, cb, function() {
-		self.db.getSlug(self.box, slug, {without: "id"}, self.cache.add(slug, cb));
-	});
+	self.db.getSlug(self.box, slug, {without: "id"}, cb);
 };
 
 Tree.prototype.create = function (tree, cb) {
@@ -41,85 +38,78 @@ Tree.prototype.remove = function (slug, cb) {
 };
 
 Tree.prototype.createItem = function (item, cb) {
-	let self = this,
-		r = this.db.r,
-		path = this.db.getPath(item.slug, "items"),
-		treeId = path[0],
-		itemId = path[2];
+	let db = this.db;
+	let path = item.id.split("/");
+	let treeId = path.shift();
+	let itemId = path.pop();
 
-	delete item.slug;
-	this.db.insert(this.box, path, item, function(err) {
-		if (err) {
-			cb(err, null);
-		} else {
-			r.table(self.box)
-				.getAll(treeId, {index: "slug"})
-				.replace(function(row) {
-					return row.merge({order: row("order").append(itemId)});
-				})
-				.run()
-				.catch(cb)
-				.then(function(res) {
-					// self.cache.remove(treeId, cb);
-					cb(null, res);
-				});
-		}
+	delete item.id;
+
+	let q = db.table(this.box).getAll(treeId, {index: "slug"});
+
+	q = db.updateOnPath(q, path, function(row) {
+		let itemMerge = {};
+		itemMerge[itemId] = item;
+		return {
+			order: row("order").prepend(itemId),
+			items: row("items").merge(itemMerge)
+		};
 	});
+
+	db.run(q, cb);
 };
 
 Tree.prototype.updateItem = function (item, data, cb) {
-	let path = this.db.getPath(item, "items"),
-		treeId = path[0];
-	this.db.updateSlug(this.box, path, data, this.cache.remove(treeId, cb));
+	let db = this.db;
+	let path = db.getPath(item, "items");
+	let treeId = path.shift();
+
+	let q = db.r.table(this.box).getAll(treeId, {index: "slug"});
+
+	q = db.updateOnPath(q, path, function() {
+		return data;
+	});
+
+	db.run(q, cb);
 };
 
 Tree.prototype.renameItem = function(item, newName, cb) {
-	let self = this,
-		path = this.db.getPath(item, "items"),
-		treeId = path[0],
-		itemId = path[2];
+	let db = this.db;
+	let path = db.getPath(item, "items");
+	let treeId = path.shift();
+	let itemId = path.pop();
 
-	this.db.renameSlug(this.box, path, newName, function(err) {
-		if (err) {
-			cb(err, null);
-		} else {
-			self.db.query({
-				box: self.box,
-				get: treeId,
-				index: "slug"
-			},
-			[{
-				replace: function(row) {
-					let index = row("order").indexesOf(itemId).nth(0);
-					return row.merge({order: row("order").changeAt(index, newName)});
-				}
-			}], self.cache.remove(treeId, cb));
-		}
+	let q = db.r.table(this.box).getAll(treeId, {index: "slug"});
+
+	q = db.updateOnPath(q, path, function(row) {
+		let index = row("order").indexesOf(itemId).nth(0);
+		let itemMerge = {};
+		itemMerge[newName] = row("items")(itemId);
+		return {
+			items: db.r.literal( row("items").merge(itemMerge).without(itemId) ),
+			order: row("order").changeAt(index, newName)
+		};
 	});
+
+	db.run(q, cb);
 };
 
 Tree.prototype.removeItem = function (item, cb) {
-	let self = this,
-		path = this.db.getPath(item, "items"),
-		treeId = path[0],
-		itemId = path[2];
+	let db = this.db;
+	let path = this.db.getPath(item, "items");
+	let treeId = path.shift();
+	let itemId = path.pop();
 
-	this.db.removeSlug(this.box, path, function(err) {
-		if (err) {
-			cb(err, null);
-		} else {
-			self.db.query({
-				box: self.box,
-				get: treeId,
-				index: "slug"
-			},
-			[{
-				replace: function(row) {
-					return row.merge({order: row("order").setDifference([itemId])});
-				}
-			}], self.cache.remove(treeId, cb));
-		}
+	let q = db.table(this.box).getAll(treeId, {index: "slug"});
+
+	q = db.updateOnPath(q, path, function(row) {
+		return {
+			items: db.r.literal( row("items").without(itemId) ),
+			order: row("order").setDifference( [itemId] )
+		};
 	});
+
+	db.run(q, cb);
 };
 
 

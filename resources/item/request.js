@@ -7,7 +7,7 @@ Request.prototype.unitInit = function(units) {};
 
 Request.prototype.create = function() {
 	return v.basedOn(v.TreeItem, {
-		slug: v.path
+		id: v.path
 	});
 };
 
@@ -16,7 +16,7 @@ Request.prototype.update = function() {
 		id: v.path,
 		to: v.or(
 			{ slug: v.slug },
-			{ link: v.str },
+			{ href: v.str },
 			{ order: [v.slug] },
 			{ title: v.opt(v.str) }
 		)
