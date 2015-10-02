@@ -9,8 +9,8 @@
 		"units": 	"~0.0.1",
 		"uch": 		"~0.0.2",
 
-		"sweets-valid": 	"~0.0.3",
-		"apis-return": "~0.1.0"
+		"sweets-valid": 	"~0.6.0",
+		"apis-return": "~0.2.0"
 	},
 	"repository": {
 		"type": "git",
