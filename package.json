@@ -1,20 +1,27 @@
 {
-	"name": "sweets-marshmallow",
-	"version": "0.6.0",
-	"description": "Tree based structures (menu, categories, etc.)",
-	"keywords": ["future", "web", "framework", "sweets", "tree", "menu", "categories"],
-	"author": "Alexey Novikov <v@2dubs.com> (http://2dubs.com)",
-	"license" : "MIT",
-	"dependencies": {
-		"units": 	"~0.0.1",
-		"uch": 		"~0.0.2",
-
-		"sweets-valid": 	"~0.6.0",
-		"apis-return": "~0.2.0"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git@github.com:swts/marshmallow.git"
-	},
-	"main": "./index"
+  "name": "sweets-marshmallow",
+  "version": "0.6.1",
+  "description": "Tree based structures (menu, categories, etc.)",
+  "keywords": [
+    "future",
+    "web",
+    "framework",
+    "sweets",
+    "tree",
+    "menu",
+    "categories"
+  ],
+  "author": "Alexey Novikov <v@2dubs.com> (http://2dubs.com)",
+  "license": "MIT",
+  "dependencies": {
+    "units": "~0.0.1",
+    "uch": "~0.0.2",
+    "sweets-valid": "~0.6.0",
+    "apis-return": "~0.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:swts/marshmallow.git"
+  },
+  "main": "./index"
 }
