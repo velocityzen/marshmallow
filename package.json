@@ -14,10 +14,7 @@
   "author": "Alexey Novikov <v@2dubs.com> (http://2dubs.com)",
   "license": "MIT",
   "dependencies": {
-    "units": "~0.0.1",
-    "uch": "~0.0.2",
-    "sweets-valid": "~0.6.0",
-    "apis-return": "~0.2.0"
+    "mmp-errors": "^0.8.0"
   },
   "repository": {
     "type": "git",
