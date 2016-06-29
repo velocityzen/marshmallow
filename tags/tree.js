@@ -13,8 +13,6 @@ TreeTag.prototype.parse = function(parser, nodes) {
 };
 
 TreeTag.prototype.render = function(context, slug, cb) {
-  let env = this.env;
-
   this.ctrl
     .getBySlug(slug)
     .then(tree => {
@@ -30,9 +28,9 @@ TreeTag.prototype.render = function(context, slug, cb) {
 
       let template;
       try {
-        template = env.getTemplate('trees/' + slug + '.html');
+        template = this.env.getTemplate('trees/' + slug + '.html');
       } catch (e) {
-        template = env.getTemplate('trees/tree.html');
+        template = this.env.getTemplate('trees/tree.html');
       }
 
       template.render(result, cb);

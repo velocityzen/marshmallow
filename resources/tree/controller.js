@@ -86,13 +86,12 @@ Tree.prototype.renameItem = function(id, path, newName) {
   return q.run();
 };
 
-Tree.prototype.removeItem = function(item) {
+Tree.prototype.deleteItem = function(id, path) {
   let db = this.db;
-  let path = this.db.getPath(item, 'items');
-  let treeId = path.shift();
+  path = this.db.getPath(path, 'items');
   let itemId = path.pop();
 
-  let q = db.table(this.table).getAll(treeId, { index: 'slug' });
+  let q = db.table(this.table).get(id);
 
   q = db.updateOnPath(q, path, function(row) {
     return {

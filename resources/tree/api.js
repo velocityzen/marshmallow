@@ -261,11 +261,7 @@ Api.prototype.deleteItemSchema = function() {
           type: 'string',
           format: 'uuid'
         },
-
-        path: {
-          type: 'string',
-          format: 'uuid'
-        }
+        path: types.path()
       }
     }
   }
